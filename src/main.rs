@@ -9,13 +9,13 @@ fn main() {
 
     // Create a string for storing RGB values:
     let mut opposite_color = String::new();
+    let mut rgb_values: Vec<u8> = vec![];
 
     match io::stdin().read_line(&mut input) {
         Ok(_) => {
 
             // Trim whitespaces off of input and convert to uppercase
             let input = input.trim().to_uppercase().replace("#", "");
-            println!("\nCalculating opposite of: {}", input);
 
             // Split the characters into pairs
             let pairs: Vec<_> = input.chars().collect();
@@ -32,6 +32,7 @@ fn main() {
 
                 match value {
                     Ok(result) => {
+                        rgb_values.push(result);
                         let mut new_value: u8 = 255 - result;
                         let mut hex_value: String = format!("{:02X}", new_value);
                         opposite_color.push_str(&hex_value);
@@ -46,6 +47,12 @@ fn main() {
         Err(e) => println!("Something went wrong")
     }
 
-    println!("Result: {}", opposite_color);
+    println!("\nStarting color\nHex: #{}", input.trim().to_uppercase());
+    println!("RGB: {}, {}, {}",
+             rgb_values[0], rgb_values[1], rgb_values[2]);
+    println!("\nOpposite color\nHex: #{}", opposite_color);
+    println!("RGB: {}, {}, {}",
+             255 - rgb_values[0], 255 - rgb_values[1], 255 -rgb_values[2]);
+
 
 }
