@@ -1,4 +1,5 @@
 use std::io;
+use colored::Colorize;
 
 fn main() {
     // Declare a string variable that will be used to store the user input
@@ -33,26 +34,25 @@ fn main() {
                 match value {
                     Ok(result) => {
                         rgb_values.push(result);
-                        let mut new_value: u8 = 255 - result;
-                        let mut hex_value: String = format!("{:02X}", new_value);
+                        let new_value: u8 = 255 - result;
+                        let hex_value: String = format!("{:02X}", new_value);
                         opposite_color.push_str(&hex_value);
                     }
-                    Err(e) => {
+                    Err(_e) => {
                         println!("Invalid hex string: {}", hex_collection);
                     }
                 }
 
             }
         }
-        Err(e) => println!("Something went wrong")
+        Err(_e) => println!("Something went wrong")
     }
 
-    println!("\nStarting color\nHex: #{}", input.trim().to_uppercase());
-    println!("RGB: {}, {}, {}",
+    println!("\n{}\nHex: #{}", "Starting Color".yellow().underline(), input.trim().to_uppercase().cyan());
+    println!("{}{}{}: {}, {}, {}", "R".red(), "G".green(), "B".blue(),
              rgb_values[0], rgb_values[1], rgb_values[2]);
-    println!("\nOpposite color\nHex: #{}", opposite_color);
-    println!("RGB: {}, {}, {}",
+    println!("\n{}\nHex: #{}", "Opposite Color".purple().underline(), opposite_color.cyan());
+    println!("{}{}{}: {}, {}, {}", "R".red(), "G".green(), "B".blue(),
              255 - rgb_values[0], 255 - rgb_values[1], 255 -rgb_values[2]);
-
 
 }
